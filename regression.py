@@ -47,6 +47,7 @@ model.fit(x, label)
 cv_scores = cross_val_score(model, x, label, cv=5)
 print(cv_scores)
 print(cv_scores.mean())
+print(np.std(scores))
 
 print(f"Gradient: {model.coef_}") #Gradient of regression
 print(f"Y Intercept: {model.intercept_}") #Y intercept of regression
