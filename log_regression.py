@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score
 from sklearn.base import clone
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -28,12 +28,14 @@ for random_state in random_states:
     error_count += 1
     model.fit(x_reshaped, y_train)
     y_pred = model.predict(x_test_reshaped)
+    y_prob_pred = model.predict_proba(x_test_reshaped)[:, 1]
     conf_matrix = confusion_matrix(y_test, y_pred)
     print(f"Test Count {error_count}: ")
     print(f"Score: {model.score(x_test_reshaped, y_test)}")
     print(f"Accuracy Score: {accuracy_score(y_test, y_pred)}")#same as mode.score just did it for learning
     print(f"Matrix Confusion: {conf_matrix}")
     print(f"Classification Report: {classification_report(y_test, y_pred)}")
+    print(f"ROC AUC Score: {roc_auc_score(y_test, y_prob_pred)}")
 
 model = clone(model)
 model.fit(train, label)
